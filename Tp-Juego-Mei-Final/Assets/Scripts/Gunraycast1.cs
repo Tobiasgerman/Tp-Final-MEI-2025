@@ -5,8 +5,8 @@ public class Gunraycast1 : MonoBehaviour
     [Header("Ray settings")]
     public float range = 50f;
     public float force = 500f;
-    public LayerMask hitLayers = ~0; // por defecto todo
-    public bool useCameraCenter = true; // si true usa cámara principal y centro de pantalla
+    public LayerMask hitLayers = ~0; 
+    public bool useCameraCenter = true; 
 
     [Header("Door")]
     public GameObject door;
@@ -15,7 +15,7 @@ public class Gunraycast1 : MonoBehaviour
     [Header("Visual / Debug")]
     public bool drawDebugRay = true;
     public float debugDuration = 1f;
-    public LineRenderer lineRenderer; // opcional: arrastrar LineRenderer para ver láser
+    public LineRenderer lineRenderer; 
 
     Camera cam;
 
@@ -31,7 +31,7 @@ public class Gunraycast1 : MonoBehaviour
 
     void Update()
     {
-        // usa Input.GetMouseButtonDown(0) si prefieres
+      
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
@@ -45,14 +45,14 @@ public class Gunraycast1 : MonoBehaviour
 
         if (useCameraCenter && cam != null)
         {
-            // Ray desde el centro de la pantalla (FPS típico)
+            
             Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
             origin = ray.origin;
             direction = ray.direction;
         }
         else
         {
-            // Ray desde la posición de este transform hacia forward
+            
             origin = transform.position;
             direction = transform.forward;
         }
@@ -62,7 +62,7 @@ public class Gunraycast1 : MonoBehaviour
         {
             Debug.Log($"Golpeaste: {hit.collider.name} (Tag: {hit.collider.tag})");
 
-            // Fuerza
+            
             if (hit.rigidbody != null)
             {
                 hit.rigidbody.AddForce(direction * force, ForceMode.Impulse);
@@ -72,7 +72,7 @@ public class Gunraycast1 : MonoBehaviour
                 Debug.Log("El objeto no tiene Rigidbody (no se aplicó fuerza).");
             }
 
-            // Si el objeto golpeado se llama "cartel", lo desactivamos
+           
             if (hit.collider.gameObject.name == "cartel")
             {
                 hit.collider.gameObject.SetActive(false);
@@ -86,13 +86,13 @@ public class Gunraycast1 : MonoBehaviour
             Debug.Log("No golpeaste nada.");
         }
 
-        // dibujar rayo para debug
+       
         if (drawDebugRay)
         {
             Debug.DrawRay(origin, direction * range, Color.red, debugDuration);
         }
 
-        // LineRenderer opcional (visual láser)
+        
         if (lineRenderer != null)
         {
             StartCoroutine(ShowLaser(origin, direction));

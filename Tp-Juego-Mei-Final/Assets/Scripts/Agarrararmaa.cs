@@ -26,19 +26,19 @@ public class Agarrararmaa : MonoBehaviour
     {
         isPicked = true;
 
-        // Desactivar física para que no se caiga
+       
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.isKinematic = true;
         }
 
-        // Poner el arma en la mano
+       
         transform.SetParent(hand);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
 
-        // Habilitar el script de disparo
+      
         GetComponent<Gunraycast1>().enabled = true;
 
         Debug.Log("Arma recogida.");

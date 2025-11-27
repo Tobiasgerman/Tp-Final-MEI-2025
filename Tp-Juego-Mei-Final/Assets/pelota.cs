@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class pelota : MonoBehaviour
 {
-    [Header("Pickup Settings")]
     public Transform hand;
     public float pickupDistance = 3f;
     public KeyCode pickupKey = KeyCode.H;
 
-    [Header("Shoot Settings")]
+   
     public float shootForce = 900f;
 
-    [Header("Objects To Destroy")]
-    public List<GameObject> objectsToDestroy;   // ← ARRAY ASIGNADO EN INSPECTOR
+    
+    public List<GameObject> objectsToDestroy;   
 
     private Rigidbody rb;
     private Collider col;
@@ -27,7 +26,7 @@ public class pelota : MonoBehaviour
         col = GetComponent<Collider>();
         lr = GetComponent<LineRenderer>();
 
-        // Configurar el LineRenderer
+       
         lr.positionCount = 0;
         lr.widthMultiplier = 0.05f;
     }
@@ -36,25 +35,24 @@ public class pelota : MonoBehaviour
     {
         float dist = Vector3.Distance(hand.position, transform.position);
 
-        // AGARRAR
+        
         if (!isPicked && dist <= pickupDistance && Input.GetKeyDown(pickupKey))
         {
             PickUp();
         }
 
-        // MIENTRAS ESTÁ AGARRADA
         if (isPicked)
         {
             transform.position = hand.position;
 
-            // DISPARAR con CLICK DERECHO
+           
             if (Input.GetMouseButtonDown(1))
             {
                 Shoot();
             }
         }
 
-        // DIBUJAR TRAJECTORIA
+       
         if (wasShot)
         {
             DrawTrajectory();
@@ -96,7 +94,7 @@ public class pelota : MonoBehaviour
     {
         if (!wasShot) return;
 
-        // BUSCA SI EL OBJETO GOLPEADO ESTÁ EN EL ARRAY
+       
         foreach (GameObject obj in objectsToDestroy)
         {
             if (collision.gameObject == obj)
@@ -105,7 +103,7 @@ public class pelota : MonoBehaviour
             }
         }
 
-        // Deja de dibujar la trayectoria al chocar
+       
         lr.positionCount = 0;
         wasShot = false;
     }

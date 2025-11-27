@@ -26,7 +26,7 @@ public class PickupGun : MonoBehaviour
     {
         isPicked = true;
 
-        // Desactivar física para que no se caiga
+       
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -38,7 +38,7 @@ public class PickupGun : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
 
-        // Habilitar el script de disparo
+        // disparo
         GetComponent<Gunraycast1>().enabled = true;
 
         Debug.Log("Arma recogida.");
